@@ -1,18 +1,25 @@
 <script setup>
-
+import NavBar from './components/NavBar.vue'
+import Cabecalho from './components/Cabecalho.vue'
 </script>
 
 <template>
+  <NavBar/>
   <header>
-    <div class="wrapper">
-    </div>
+   <Cabecalho />
   </header>
 
   <main>
   </main>
 </template>
 
-<style scoped>
+<style >
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 header {
   line-height: 1.5;
 }
