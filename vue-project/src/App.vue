@@ -1,6 +1,7 @@
 <script setup>
 import NavBar from './components/NavBar.vue'
 import Cabecalho from './components/Cabecalho.vue'
+import Usuario from './components/Usuario.vue'
 </script>
 
 <template>
@@ -10,6 +11,7 @@ import Cabecalho from './components/Cabecalho.vue'
   </header>
 
   <main>
+    <Usuario></Usuario>
   </main>
 </template>
 
