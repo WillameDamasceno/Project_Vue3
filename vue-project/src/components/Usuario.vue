@@ -19,8 +19,9 @@
     </div>
 
     <button class="botao" v-on:click="calcularIdade">Calcula idade</button>
-
     <p style="text-align: center">{{ nome }} nasceu em {{ dataNascimento }} logo tem {{ idade }}</p>
+    <button class="botao" v-on:click="$event => calcularIdadeParametro(2)">+2</button>
+    <p style="text-align: center">{{ nome }} tem {{ idadeFutura }}</p>
 </template>
 
 
@@ -29,11 +30,18 @@ import { ref } from "vue";
 const nome = ref("Willame");
 const dataNascimento = ref(0);
 const idade = ref(0);
+const idadeFutura = ref(0);
 
-function calcularIdade(){
+const calcularIdade = () => {
     idade.value = 2023 - dataNascimento.value;
 }
+const calcularIdadeParametro = (valor) => {
+    idadeFutura.value = idade.value + valor;
+}
 
+onMounted(() => {
+    
+});
 </script>
 
 <style scoped>
