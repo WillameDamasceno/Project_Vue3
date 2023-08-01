@@ -1,56 +1,40 @@
 <template>
-    <div>
-        <form class="formulario">
-            <label for="nome">Nome:</label>
-            <input
-                type="text"
-                id="nome" 
-                name="nome" 
-                v-model="nome"/>
-            <br/>
-            <label for="dataNascimento">Data Nascimento:</label>
-            <input 
-                type="number" 
-                id="dataNascimento" 
-                name="dataNascimento" 
-                v-model="dataNascimento"/>
-            <br/>
-        </form>
+    <div  class="perfil">
+        <img :src="pessoa.avatar" alt="Perfil"/>
+        <strong>{{ pessoa.first_name }}</strong>
+        <span>{{ pessoa.email }}</span>
+        <button class="botao" @click="enviaEmit(pessoa.id)">
+            {{ !selecao ? "Selecionar" : "Desmarcar" }}
+        </button>
     </div>
-
-    <button class="botao" v-on:click="calcularIdade">Calcula idade</button>
-    <p style="text-align: center">{{ nome }} nasceu em {{ dataNascimento }} logo tem {{ idade }}</p>
-    <button class="botao" v-on:click="$event => calcularIdadeParametro(2)">+2</button>
-    <p style="text-align: center">{{ nome }} tem {{ idadeFutura }}</p>
 </template>
 
 
 <script setup>
-import { ref } from "vue";
-const nome = ref("Willame");
-const dataNascimento = ref(0);
-const idade = ref(0);
-const idadeFutura = ref(0);
 
-const calcularIdade = () => {
-    idade.value = 2023 - dataNascimento.value;
-}
-const calcularIdadeParametro = (valor) => {
-    idadeFutura.value = idade.value + valor;
-}
-
-onMounted(() => {
-    
+defineProps({
+    pessoa:{
+        type: Object,
+        required: true,
+        default: ()=>({
+            id: 0,
+            first_name: "",
+            last_name: "",
+            avatar: "",
+            email: "",
+        }),
+    },
+    selecao: Boolean,
 });
+
+const emit = defineEmits(["selecao"]);
+const enviaEmit = (id) => {
+    emit('selecao', id)
+}
+
 </script>
 
 <style scoped>
-.formulario{
-    margin: 0 auto;
-    padding: 5px;
-    width: 200px;
-    background: darkcyan;
-}
 .botao {
     margin: 5px auto;
     padding: 5px;
@@ -60,7 +44,26 @@ onMounted(() => {
     border-style: none;
     cursor: pointer;
 }
-.botao:hover {
-    background: rgb(102, 147, 147);
+button:disabled,
+button[disabled] {
+    border: 1 px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: default;
+}
+.perfil{
+    width: 150px;
+    text-align: center;
+}
+.perfil img {
+    margin: 0 auto;
+    width: 80px;
+    display: block;
+    padding: 5px;
+    border-radius: 10px;
+}
+.perfil span {
+    display: block;
+    font-size: 0.75rem;
 }
 </style>

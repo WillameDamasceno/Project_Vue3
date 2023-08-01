@@ -2,6 +2,7 @@
 import NavBar from './components/NavBar.vue'
 import Cabecalho from './components/Cabecalho.vue'
 import Usuario from './components/Usuario.vue'
+import ListaUsuario from './components/ListaUsuario.vue';
 </script>
 
 <template>
@@ -11,7 +12,8 @@ import Usuario from './components/Usuario.vue'
   </header>
 
   <main>
-    <Usuario></Usuario>
+    <!--<Usuario></Usuario>-->
+    <ListaUsuario></ListaUsuario>
   </main>
 </template>
 
