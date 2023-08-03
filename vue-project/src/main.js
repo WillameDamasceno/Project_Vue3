@@ -3,8 +3,10 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import NavBar from "./components/NavBar.vue"
 import  router from "./router";
+import { createPinia } from 'pinia';
 
 const app = createApp(App);
+const pinia = createPinia();
 app.component("NavBar", NavBar);
 app.directive("email", {
     created(el, biding) {
@@ -12,5 +14,6 @@ app.directive("email", {
     },
 });
 
+app.use(pinia);
 app.use(router);
 app.mount('#app');
