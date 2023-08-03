@@ -2,31 +2,35 @@
     <div class="selecionados">
         <span v-for="pm in pessoasSelecionadas" :key="pm.id" class="card"></span>
     </div>
-    <div class="pessoas">
+    <div v-if="carregando">
+        <h3>Carregando...</h3>
+    </div>
+    <div class="pessoas" v-else>
         <Usuario
             v-for="pessoa in pessoas"
             :key="pessoa.id"
             :pessoa="pessoa"
             :selecao="idSelecionado(pessoa.id)"
             @selecao="adicionaSelecao"
+            v-if="!error"
         ></Usuario>
+        <div v-else>
+            {{ error }}
+        </div>
     </div>
 </template>
 
 
 <script setup>
-import { ref, onMounted, watchEffect } from "vue";
+import { ref, onMounted, computed } from "vue";
 import Usuario from "./Usuario.vue";
+import { provide } from "vue";
+import { useFetch } from "../composables/fetch";
 
-const pessoas = ref([]);
-const idsSelecao = ([]);
-const pessoasSelecionadas = ref([]);
+const { data: pessoas, error, carregando } = useFetch(`https://reqres.in/api/users?delay=3`);
 
-const buscaInformacoes = async () => {
-    const req = await fetch(`https://reqres.in/api/users?page=2`);
-    const json = await req.json();
-    return json.data;
-};
+const idsSelecao = ref([]);
+const aviso = "Em caso de dúvida, contate o suporte."
 
 onMounted(async () => {
     pessoas.value = await buscaInformacoes();
@@ -40,13 +44,16 @@ const adicionaSelecao = (evento) => {
     idsSelecao.value.push(evento);
 };
 
-watchEffect(() => {
-    pessoasSelecionadas.value = pessoas.value.filter((x) => idSelecionado(x.id));
+const pessoasSelecionadas = computed(() => {
+    if (!pessoas.value) return [];
+    return pessoas.value.filter((x) => idSelecionado(x.id));
 });
 
 const idSelecionado = (id) => {
     return idsSelecao.value.includes(id);
 };
+
+provide("aviso", aviso);
 </script>
 
 <style scoped>
