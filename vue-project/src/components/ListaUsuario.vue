@@ -6,15 +6,17 @@
         <h3>Carregando...</h3>
     </div>
     <div class="pessoas" v-else>
+        <div v-for="pessoa in pessoas" :key="pessoa.id" v-if="!error">
+            <button @click="redirecionaFuncionario(pessoa.id)">
+                Ver Funcionário
+            </button>
         <Usuario
-            v-for="pessoa in pessoas"
-            :key="pessoa.id"
             :pessoa="pessoa"
             :selecao="idSelecionado(pessoa.id)"
             @selecao="adicionaSelecao"
-            v-if="!error"
         ></Usuario>
-        <div v-else>
+    </div>
+    <div v-else>
             {{ error }}
         </div>
     </div>
@@ -26,8 +28,11 @@ import { ref, onMounted, computed } from "vue";
 import Usuario from "./Usuario.vue";
 import { provide } from "vue";
 import { useFetch } from "../composables/fetch";
+import { useRouter } from "vue-router";
 
-const { data: pessoas, error, carregando } = useFetch(`https://reqres.in/api/users?delay=3`);
+const router = useRouter();
+
+const { data: pessoas, error, carregando } = useFetch(`https://reqres.in/api/users?page=2`);
 
 const idsSelecao = ref([]);
 const aviso = "Em caso de dúvida, contate o suporte."
@@ -53,6 +58,10 @@ const idSelecionado = (id) => {
     return idsSelecao.value.includes(id);
 };
 
+const redirecionaFuncionario = (id) => {
+    router.push(`/equipe/${id}`);
+};
+
 provide("aviso", aviso);
 </script>
 
@@ -72,6 +81,7 @@ provide("aviso", aviso);
 .pessoas{
     display:flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 .perfil{
     width: 150px;

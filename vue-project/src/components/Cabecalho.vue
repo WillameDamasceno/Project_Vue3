@@ -1,11 +1,10 @@
 <template>
-    <div>
-        <h1 class="titulo">{{ nome }}</h1>
-    </div>
+        <div>
+            <h1 class="titulo">Willame Damasceno</h1>
+        </div>
 </template>
 
 <script setup>
-    const nome = 'willame'
 </script>
 
 <style scoped>

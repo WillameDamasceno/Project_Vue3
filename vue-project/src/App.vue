@@ -13,7 +13,7 @@ import ListaUsuario from './components/ListaUsuario.vue';
 
   <main>
     <!--<Usuario></Usuario>-->
-    <ListaUsuario></ListaUsuario>
+    <router-view></router-view>
   </main>
 </template>
 
@@ -26,6 +26,11 @@ import ListaUsuario from './components/ListaUsuario.vue';
 }
 header {
   line-height: 1.5;
+}
+
+[color-scheme="dark"] {
+  background-color: black;
+  color: white;
 }
 
 </style>
