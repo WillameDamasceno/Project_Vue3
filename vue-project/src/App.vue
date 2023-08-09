@@ -1,36 +1,21 @@
 <script setup>
-import NavBar from './components/NavBar.vue'
-import Cabecalho from './components/Cabecalho.vue'
-import Usuario from './components/Usuario.vue'
-import ListaUsuario from './components/ListaUsuario.vue';
+import Visualizacao from "./components/Visualizacao.vue";
+import Cabecalho from "./components/Cabecalho.vue";
 </script>
 
 <template>
-  <NavBar/>
-  <header>
-   <Cabecalho />
-  </header>
-
-  <main>
-    <!--<Usuario></Usuario>-->
+  <Visualizacao>
+    <template #footer> Rodapé página </template>
+    <!-- <template v-slot:cabecalho>
+      <Cabecalho>
+        <template v-slot="slotProp">
+          <p class="titulo">{{ slotProp.mensagem }}</p>
+          <button @click="slotProp.funcao">Clique aqui</button>
+        </template>
+      </Cabecalho>
+    </template> -->
     <router-view></router-view>
-  </main>
+  </Visualizacao>
 </template>
 
-<style >
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-header {
-  line-height: 1.5;
-}
-
-[color-scheme="dark"] {
-  background-color: black;
-  color: white;
-}
-
-</style>
+<style></style>
